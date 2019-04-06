@@ -1,7 +1,7 @@
 # YandexMailTest
-Laboratory work for Software Testing in ITMO
-This is a console testing application built without any test frameworks.
-Testing a bit of [Yandex_Mail](http://mail.yandex.ru) website
+Laboratory work for Software Testing in ITMO.
+
+This is a console program that automatically tests a [Yandex_Mail](http://mail.yandex.ru) website.
 
 ## Built With
 
