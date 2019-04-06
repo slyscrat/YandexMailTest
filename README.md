@@ -9,8 +9,8 @@ This is a console program that automatically tests a [Yandex_Mail](http://mail.y
 * [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) - driver for testing in Chrome - *version 74.0.3729.6*
 
 Next two dependencies would be loaded by Maven automatically 
-* [Selenium] - *version 3.141.59*
-* [Lombok] - *version 1.18.6*
+* Selenium - *version 3.141.59*
+* Lombok - *version 1.18.6*
 
 ### Installing
 
