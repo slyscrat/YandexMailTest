@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import ru.mail.yandex.data.UserData;
-import ru.mail.yandex.utils.ConfigProperties;
+import ru.mail.yandex.utils.TestsProperties;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class SignInPage extends Page{
     private WebElement buttonSignInQR;
 
     @FindBy(linkText = "Зарегистрироваться")
-    private WebElement linkRegister;
+    private WebElement linkSignUp;
 
     @FindBy(linkText = "Другой аккаунт")
     private WebElement linkAnotherUser;
@@ -41,22 +41,43 @@ public class SignInPage extends Page{
     @FindBy(id = "passp-field-passwd")
     private WebElement fieldPassword;
 
+    @FindBy(className = "passp-form-field__error")
+    private WebElement textError;
+
+
     public SignInPage(WebDriver driver){
         super(driver);
     }
 
     @Override
     public void open(){
-        driver.get(ConfigProperties.getProperty("signin.url"));
+        driver.get(TestsProperties.getProperty("signin.url"));
+    }
+
+    public boolean isErrorNotShown(String text){
+        if (isElementPresent(textError)){
+            return textError.getText().equals(text);
+        }
+        return false;
+    }
+
+    public void submitUsername(String data){
+        type(fieldUsername, data);
+        fieldUsername.submit();
+    }
+
+    public void submitPassword(String data){
+        type(fieldPassword, data);
+        fieldPassword.submit();
     }
 
     public HomePage loginAs(UserData user){
-        //linkSignIn.click();
         type(fieldUsername, user.getUsername());
-        buttonSignIn.click();
-        //fieldUsername.submit();
-        type(fieldPassword, user.getPassword());
-        fieldPassword.submit();
+        fieldUsername.submit();
+        if (isElementPresent(fieldPassword)){
+            type(fieldPassword, user.getPassword());
+            fieldPassword.submit();
+        }
         return PageFactory.initElements(driver, HomePage.class);
     }
 

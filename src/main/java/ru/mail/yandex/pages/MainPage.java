@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import ru.mail.yandex.utils.ConfigProperties;
+import ru.mail.yandex.utils.TestsProperties;
 
 public class MainPage extends Page {
     public MainPage(WebDriver driver){
@@ -12,18 +12,18 @@ public class MainPage extends Page {
     }
 
     @FindBy(xpath = "//*[@id=\"index-page-container\"]/div/div[2]/div/div/div[4]/a[1]")
-    public WebElement buttonRegister;
+    private WebElement buttonSignUp;
 
     @FindBy(xpath= "//*[@id=\"index-page-container\"]/div/div[2]/div/div/div[4]/a[2]")
-    public WebElement buttonSignIn;
+    private WebElement buttonSignIn;
 
     @Override
     public void open(){
-        driver.get(ConfigProperties.getProperty("main.url"));
+        driver.get(TestsProperties.getProperty("main.url"));
     }
 
     public boolean isPageLoaded(){
-        return (isElementPresent(buttonRegister) && isElementPresent(buttonSignIn));
+        return (isElementPresent(buttonSignUp) && isElementPresent(buttonSignIn));
     }
 
     public SignInPage goToSignIn(){
@@ -31,8 +31,8 @@ public class MainPage extends Page {
         return PageFactory.initElements(driver, SignInPage.class);
     }
 
-    public RegisterPage goToRegister(){
-        buttonRegister.click();
-        return PageFactory.initElements(driver, RegisterPage.class);
+    public SignUpPage goToSignUp(){
+        buttonSignUp.click();
+        return PageFactory.initElements(driver, SignUpPage.class);
     }
 }

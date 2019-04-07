@@ -3,6 +3,7 @@ package ru.mail.yandex.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.mail.yandex.utils.TestsProperties;
 
 public class HomePage extends Page {
 
@@ -11,21 +12,18 @@ public class HomePage extends Page {
     }
 
     @FindBy(xpath = "//a[@class='login']")
-    public WebElement linkSignIn;
+    private WebElement linkSignIn;
 
     @FindBy(linkText= "Выйти из сервисов Яндекса")
-    public WebElement linkSignOut;
+    private WebElement linkSignOut;
 
     @FindBy(className = "mail-User-Name")
-    public WebElement userActions;
+    private WebElement userActions;
 
     @Override
-    public void open(){
-        //driver.get(ConfigProperties.getProperty("homePage.url"));
-    }
+    public void open(){ driver.get(TestsProperties.getProperty("homepage.url"));}
 
     public boolean isSignedIn(){
-        // maybe change to sign out
         return isElementPresent(userActions);
     }
 

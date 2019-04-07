@@ -1,9 +1,11 @@
 package ru.mail.yandex.tests.SignIn;
 
 import org.openqa.selenium.support.PageFactory;
+import ru.mail.yandex.data.UserData;
 import ru.mail.yandex.pages.HomePage;
 import ru.mail.yandex.pages.SignInPage;
 import ru.mail.yandex.tests.WebTest;
+import ru.mail.yandex.utils.TestsProperties;
 
 
 public class TestValidSignIn extends WebTest {
@@ -16,16 +18,12 @@ public class TestValidSignIn extends WebTest {
     @Override
     public boolean test() {
         signInPage.open();
-        homePage = signInPage.loginAs(Ilya);
-
-        if (homePage.isSignedIn()){
-            homePage.signOut();
-            return true;
+        homePage = signInPage.loginAs(new UserData(TestsProperties.getProperty("username"), TestsProperties.getProperty("password")));
+        if (!homePage.isSignedIn()){
+            status = false;
+            failedPrint(this.getClass().getSimpleName(), "user authorization");
         }
-        else{
-            System.out.println("Пользователь не авторизован");
-            return false;
-        }
+        return status;
     }
 
 }
