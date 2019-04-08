@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import ru.mail.yandex.data.UserData;
 import ru.mail.yandex.utils.TestsProperties;
 
 import java.util.concurrent.TimeUnit;
@@ -12,8 +13,9 @@ public abstract class WebTest {
     @Getter
     @Setter
     protected boolean status = true;
-    protected static WebDriver driver;
-    //protected static final UserData Ilya = new UserData(TestsProperties.getProperty("username"),TestsProperties.getProperty("password"));
+    private static WebDriver driver;
+    @Getter
+    private static final UserData user = new UserData(TestsProperties.getProperty("username"),TestsProperties.getProperty("password"));
 
     protected WebDriver getDriver(){
         if (driver == null){
@@ -56,7 +58,18 @@ public abstract class WebTest {
         driver.quit();
     }
 
-    protected static void failedPrint(String test, String step){
+    protected void failedPrint(String test, String step){
         System.out.println("Test: " + test + " failed at: " + step);
     }
+
+    protected boolean isRedirectedTo(String url){
+        //while(!waitForJStoLoad()){}
+        return driver.getCurrentUrl().contains(url);
+    }
+
+    /*public boolean waitForJStoLoad() {
+        WebDriverWait wait = new WebDriverWait(driver, 8);
+        ExpectedCondition<Boolean> jsLoad = driver -> ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
+        return wait.until(jsLoad);
+    }*/
 }

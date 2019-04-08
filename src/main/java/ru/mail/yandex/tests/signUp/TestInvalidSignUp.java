@@ -1,4 +1,4 @@
-package ru.mail.yandex.tests.SignUp;
+package ru.mail.yandex.tests.signUp;
 
 import org.openqa.selenium.support.PageFactory;
 import ru.mail.yandex.pages.SignUpPage;
@@ -14,7 +14,7 @@ public class TestInvalidSignUp extends WebTest {
     public boolean test() {
         signUpPage.open();
         try{
-            // will be added
+
         }
         catch(Exception ex){
             status = false;

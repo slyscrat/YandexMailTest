@@ -1,4 +1,4 @@
-package ru.mail.yandex.tests.SignIn;
+package ru.mail.yandex.tests.signIn;
 
 import org.openqa.selenium.support.PageFactory;
 import ru.mail.yandex.data.ErrorData;
@@ -17,22 +17,32 @@ public class TestInvalidSignIn extends WebTest {
 
     @Override
     public boolean test() {
+
         signInPage.open();
 
         for(ErrorData error: errorUsername){
-            signInPage.submitUsername(error.getDataError());
-            if (signInPage.isErrorNotShown(error.getTextError())){
+            try {
+                signInPage.submitUsername(error.getDataError());
+                if (signInPage.isErrorNotShown(error.getTextError()))
+                    throw new Exception("username " + error.getTestError());
+            }
+            catch(Exception ex){
                 status = false;
-                failedPrint(this.getClass().getSimpleName(), "username " + error.getTestError());
+                failedPrint(this.getClass().getSimpleName(), ex.getMessage());
             }
         }
 
         signInPage.submitUsername(TestsProperties.getProperty("username"));
+
         for(ErrorData error: errorPassword){
-            signInPage.submitPassword(error.getDataError());
-            if (signInPage.isErrorNotShown(error.getTextError())){
+            try{
+                signInPage.submitPassword(error.getDataError());
+                if (signInPage.isErrorNotShown(error.getTextError()))
+                    throw new Exception("passsword " + error.getTestError());
+            }
+            catch(Exception ex){
                 status = false;
-                failedPrint(this.getClass().getSimpleName(), "passsword " + error.getTestError());
+                failedPrint(this.getClass().getSimpleName(), ex.getMessage());
             }
         }
         return status;

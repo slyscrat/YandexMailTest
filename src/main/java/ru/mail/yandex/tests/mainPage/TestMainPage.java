@@ -1,6 +1,5 @@
-package ru.mail.yandex.tests.MainPage;
+package ru.mail.yandex.tests.mainPage;
 
-import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.support.PageFactory;
 import ru.mail.yandex.pages.MainPage;
 import ru.mail.yandex.pages.SignInPage;
@@ -13,42 +12,34 @@ public class TestMainPage extends WebTest {
     private SignInPage signInPage;
     private SignUpPage signUpPage;
 
-    public void setUpBeforeMethod() {}
+    public void setUpBeforeMethod() { mainPage.open();}
 
     @Override
     public boolean test() {
 
         try{
-            mainPage.open();
-            if (!mainPage.isPageLoaded()){
-                throw new Exception();
-            }
+            if (!mainPage.isPageLoaded()) throw new Exception("page loading");
         }
         catch(Exception ex){
-            failedPrint(this.getClass().getSimpleName(), "page loading");
+            failedPrint(this.getClass().getSimpleName(), ex.getMessage());
             status = false;
-            return status;
         }
 
+        setUpBeforeMethod();
         try{
             signInPage = mainPage.goToSignIn();
-            signInPage.back();
         }
         catch(Exception ex){
-            failedPrint(TestMainPage.class.getSimpleName(), "go to sign in");
+            failedPrint(this.getClass().getSimpleName(), "go to sign in");
             status = false;
         }
 
+        setUpBeforeMethod();
         try{
             signUpPage = mainPage.goToSignUp();
-            if (signUpPage != null){
-                driver.navigate().back();
-            }
-            else
-                throw new InvalidElementStateException();
         }
         catch(Exception ex){
-            failedPrint(TestMainPage.class.getSimpleName(), "go to sign up");
+            failedPrint(this.getClass().getSimpleName(), "go to sign up");
             status = false;
         }
 

@@ -1,4 +1,4 @@
-package ru.mail.yandex.tests.SignIn;
+package ru.mail.yandex.tests.signIn;
 
 import org.openqa.selenium.support.PageFactory;
 import ru.mail.yandex.data.UserData;

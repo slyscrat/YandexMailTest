@@ -36,6 +36,7 @@ public abstract class Page {
         }
     }
 
+
     /*private boolean isAlertPresent() {
         try {
             driver.switchTo().alert();

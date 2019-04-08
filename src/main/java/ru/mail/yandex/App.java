@@ -1,7 +1,7 @@
 package ru.mail.yandex;
 
-import ru.mail.yandex.tests.SignIn.TestInvalidSignIn;
 import ru.mail.yandex.tests.WebTest;
+import ru.mail.yandex.tests.signIn.TestSignInPage;
 
 import java.util.ArrayList;
 
@@ -27,8 +27,10 @@ public class App {
         ArrayList<WebTest> testList = new ArrayList<>();
         //testList.add(new TestMainPage());
         //testList.add(new TestInvalidSignUp());
-        testList.add(new TestInvalidSignIn());
+        //testList.add(new TestInvalidSignIn());
+        //testList.add(new TestQRPage());
         //testList.add(new TestValidSignIn());
+        testList.add(new TestSignInPage());
         return testList;
     }
 }

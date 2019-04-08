@@ -17,6 +17,15 @@ public class SignInPage extends Page{
     @FindBy(xpath = "//*[@id=\"root\"]/div/div[2]/div/div[3]/div[2]/div/div/div[1]/form/div[3]/button[2]")
     private WebElement buttonSignInQR;
 
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div[2]/div/div[2]/a[3]")
+    private WebElement linkYandex;
+
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div[2]/div/div[3]/div[2]/div/div/form/a")
+    private WebElement linkLogin;
+
+    @FindBy(xpath = "//*[@id=\"root\"]/div/div[2]/div/div[3]/div[2]/div/div/form/div[1]/span[2]")
+    private WebElement buttonShowPass;
+
     @FindBy(linkText = "Зарегистрироваться")
     private WebElement linkSignUp;
 
@@ -56,9 +65,23 @@ public class SignInPage extends Page{
 
     public boolean isErrorNotShown(String text){
         if (isElementPresent(textError)){
-            return textError.getText().equals(text);
+            return !textError.getText().equals(text);
         }
-        return false;
+        return true;
+    }
+
+    public QRPage signInQR(UserData user){
+        type(fieldUsername, user.getUsername());
+        buttonSignInQR.click();
+        return PageFactory.initElements(driver, QRPage.class);
+    }
+
+    public void enterPassword(String data){
+        type(fieldPassword, data);
+    }
+
+    public void showPassword(){
+        buttonShowPass.click();
     }
 
     public void submitUsername(String data){
@@ -71,14 +94,49 @@ public class SignInPage extends Page{
         fieldPassword.submit();
     }
 
+    public void goToYandex(){
+        linkYandex.click();
+    }
+
+    public SignInPage goToLogin(){
+        linkLogin.click();
+        return this;
+    }
+
+    public void loginRestore(){
+        linkRemindLogin.click();
+    }
+
+    public void passwordRestore(){
+        linkRemindPassword.click();
+    }
+
+    public SignInPage loginIconClick(){
+        linkLogin.click();
+        return this;
+    }
+
+    public String getTypeOfPasswordField(){
+        return fieldPassword.getAttribute("type");
+    }
+
+    public boolean isLoginPage(){
+        return isElementPresent(fieldUsername);
+    }
+
+    public SignUpPage goToSignUp(){
+        linkSignUp.click();
+        return PageFactory.initElements(driver, SignUpPage.class);
+    }
+
     public HomePage loginAs(UserData user){
-        type(fieldUsername, user.getUsername());
-        fieldUsername.submit();
-        if (isElementPresent(fieldPassword)){
-            type(fieldPassword, user.getPassword());
-            fieldPassword.submit();
-        }
+        submitUsername(user.getUsername());
+        submitPassword(user.getPassword());
         return PageFactory.initElements(driver, HomePage.class);
+    }
+
+    public List<WebElement> getLinksSocialNets(){
+        return linksSocialNets;
     }
 
     public void back(){
