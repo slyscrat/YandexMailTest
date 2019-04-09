@@ -4,7 +4,6 @@ import org.openqa.selenium.support.PageFactory;
 import ru.mail.yandex.pages.QRPage;
 import ru.mail.yandex.pages.SignInPage;
 import ru.mail.yandex.tests.WebTest;
-import ru.mail.yandex.utils.TestsProperties;
 
 public class TestQRPage extends WebTest {
 
@@ -24,7 +23,7 @@ public class TestQRPage extends WebTest {
             if (!qrPage.isPageLoaded()) throw new Exception("page loading");
         }
         catch(Exception ex){
-            failedPrint(this.getClass().getSimpleName(), ex.getMessage());
+            failedPrint(this, ex.getMessage());
             status = false;
         }
 
@@ -32,17 +31,17 @@ public class TestQRPage extends WebTest {
             signInPage = qrPage.goBack();
         }
         catch(Exception ex){
-            failedPrint(this.getClass().getSimpleName(), "link go back");
+            failedPrint(this, "link go back");
             status = false;
         }
 
         setUpBeforeMethod();
         try{
             qrPage.goToYandexKey();
-            if (!isRedirectedTo(TestsProperties.getProperty("help.url"))) throw new Exception("link go Yandex.Key");
+            if (!getDriver().getCurrentUrl().contains("twofa")) throw new Exception("link go Yandex.Key");
         }
         catch(Exception ex){
-            failedPrint(this.getClass().getSimpleName(), ex.getMessage());
+            failedPrint(this, ex.getMessage());
             status = false;
         }
 
@@ -51,7 +50,7 @@ public class TestQRPage extends WebTest {
             signInPage = qrPage.signInWithPass();
         }
         catch(Exception ex){
-            failedPrint(this.getClass().getSimpleName(),"link sign in with password");
+            failedPrint(this,"link sign in with password");
             status = false;
         }
 

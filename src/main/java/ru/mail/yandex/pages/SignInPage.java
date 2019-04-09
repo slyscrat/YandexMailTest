@@ -7,6 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 import ru.mail.yandex.data.UserData;
 import ru.mail.yandex.utils.TestsProperties;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SignInPage extends Page{
@@ -53,7 +54,6 @@ public class SignInPage extends Page{
     @FindBy(className = "passp-form-field__error")
     private WebElement textError;
 
-
     public SignInPage(WebDriver driver){
         super(driver);
     }
@@ -98,11 +98,6 @@ public class SignInPage extends Page{
         linkYandex.click();
     }
 
-    public SignInPage goToLogin(){
-        linkLogin.click();
-        return this;
-    }
-
     public void loginRestore(){
         linkRemindLogin.click();
     }
@@ -120,9 +115,7 @@ public class SignInPage extends Page{
         return fieldPassword.getAttribute("type");
     }
 
-    public boolean isLoginPage(){
-        return isElementPresent(fieldUsername);
-    }
+    public boolean isLoginPage(){ return isElementPresent(fieldUsername); }
 
     public SignUpPage goToSignUp(){
         linkSignUp.click();
@@ -135,8 +128,16 @@ public class SignInPage extends Page{
         return PageFactory.initElements(driver, HomePage.class);
     }
 
-    public List<WebElement> getLinksSocialNets(){
-        return linksSocialNets;
+    public ArrayList<WebElement> getLinksSocialNets(){
+        ArrayList<WebElement> links = new ArrayList<>(linksSocialNets);
+        for(WebElement link:links){
+            if(link.getAttribute("class").contains("more")){
+                link.click();
+                links.remove(link);
+                break;
+            }
+        }
+        return links;
     }
 
     public void back(){

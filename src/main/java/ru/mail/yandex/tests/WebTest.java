@@ -58,13 +58,8 @@ public abstract class WebTest {
         driver.quit();
     }
 
-    protected void failedPrint(String test, String step){
-        System.out.println("Test: " + test + " failed at: " + step);
-    }
-
-    protected boolean isRedirectedTo(String url){
-        //while(!waitForJStoLoad()){}
-        return driver.getCurrentUrl().contains(url);
+    protected void failedPrint(WebTest test, String step){
+        System.out.println("Test: " + test.getClass().getSimpleName() + " failed at: " + step);
     }
 
     /*public boolean waitForJStoLoad() {

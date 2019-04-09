@@ -21,7 +21,7 @@ public class TestMainPage extends WebTest {
             if (!mainPage.isPageLoaded()) throw new Exception("page loading");
         }
         catch(Exception ex){
-            failedPrint(this.getClass().getSimpleName(), ex.getMessage());
+            failedPrint(this, ex.getMessage());
             status = false;
         }
 
@@ -30,7 +30,7 @@ public class TestMainPage extends WebTest {
             signInPage = mainPage.goToSignIn();
         }
         catch(Exception ex){
-            failedPrint(this.getClass().getSimpleName(), "go to sign in");
+            failedPrint(this, "go to sign in");
             status = false;
         }
 
@@ -39,7 +39,7 @@ public class TestMainPage extends WebTest {
             signUpPage = mainPage.goToSignUp();
         }
         catch(Exception ex){
-            failedPrint(this.getClass().getSimpleName(), "go to sign up");
+            failedPrint(this, "go to sign up");
             status = false;
         }
 

@@ -28,7 +28,7 @@ public class TestInvalidSignIn extends WebTest {
             }
             catch(Exception ex){
                 status = false;
-                failedPrint(this.getClass().getSimpleName(), ex.getMessage());
+                failedPrint(this, ex.getMessage());
             }
         }
 
@@ -42,7 +42,7 @@ public class TestInvalidSignIn extends WebTest {
             }
             catch(Exception ex){
                 status = false;
-                failedPrint(this.getClass().getSimpleName(), ex.getMessage());
+                failedPrint(this, ex.getMessage());
             }
         }
         return status;
