@@ -4,15 +4,15 @@ import lombok.Getter;
 
 public class ErrorData {
     @Getter
-    private String testError;
+    private String test;
     @Getter
-    private String textError;
+    private String text;
     @Getter
-    private String dataError;
+    private String data;
 
-    public ErrorData(String testError, String textError, String dataError){
-        this.testError = testError;
-        this.textError = textError;
-        this.dataError = dataError;
+    public ErrorData(String test, String text, String data){
+        this.test = test;
+        this.text = text;
+        this.data = data;
     }
 }

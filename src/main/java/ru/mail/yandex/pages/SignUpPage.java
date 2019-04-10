@@ -32,29 +32,17 @@ public class SignUpPage extends Page {
     @FindBy(id = "phone")
     private WebElement fieldPhone;
 
-    @FindBy(linkText = "У меня нет телефона")
-    private WebElement linkSecretQuestion;
-
     @FindBy(xpath = "//*[@id=\"root\"]/div/div[2]/div/main/div/div/div/form/div[4]/button")
     private WebElement buttonSignUp;
 
-    @FindBy(id = "money_eula_accepted")
-    private WebElement checkBoxOnlyPhone;
-
     @FindBy(id = "eula_accepted")
-    private WebElement checkBoxSecond;
+    private WebElement checkBox;
 
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div[2]/div/main/div/div/div/form/div[3]/div/div[2]/div[2]/div/div[1]/img")
-    private WebElement imageCaptcha;
+    @FindBy(id = "hint_answer")
+    private WebElement fieldAnswer;
 
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div[2]/div/main/div/div/div/form/div[3]/div/div[2]/div[2]/div/div[1]/div")
-    private WebElement soundCaptcha;
-
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div[2]/div/main/div/div/div/form/div[3]/div/div[2]/div[2]/input[1]")
-    private WebElement captchaId;
-
-    @FindBy(linkText = "Другой код")
-    private WebElement buttonChangeCode;
+    @FindBy(id = "captcha")
+    private WebElement fieldCaptcha;
 
     @FindBy(className = "error-message")
     private WebElement textError;
@@ -65,18 +53,63 @@ public class SignUpPage extends Page {
         driver.get(TestsProperties.getProperty("signup.url"));
     }
 
-    public void insert(){
-        type(fieldFirstName, "FirstName");
-        buttonSignUp.click();
-        type(fieldLastName, "LastName");
-        buttonSignUp.submit();
-        type(fieldPassword, "pass");
-        buttonShowPass.click();
-        buttonShowPass.click();
-    }
-
     public String errorIs(){
         return textError.getText();
+    }
+
+    public void typeInFirstname(String data){
+        type(fieldFirstName, data);
+        buttonSignUp.click();
+    }
+
+    public boolean isTextInPhoneAllowed(String data){
+        return fieldPhone.getText().equals(data);
+    }
+
+    public void typeInLastname(String data){
+        type(fieldLastName, data);
+        buttonSignUp.click();
+    }
+
+    public void typeInLogin(String data){
+        type(fieldLogin, data);
+        buttonSignUp.click();
+    }
+
+    public void typeInPassword(String data){
+        type(fieldPassword, data);
+        buttonSignUp.click();
+    }
+
+    public void typeInPasswordConfirm(String data){
+        type(fieldPasswordConfirm, data);
+        buttonSignUp.click();
+    }
+
+    public void typeInPhone(String data){
+        type(fieldPhone, data);
+    }
+
+    public void clickSignUp(){
+        buttonSignUp.click();
+    }
+
+    public void typeInAnswer(String data){
+        type(fieldAnswer, data);
+        buttonSignUp.click();
+    }
+
+    public void typeInCaptcha(String data){
+        type(fieldCaptcha, data);
+        buttonSignUp.click();
+    }
+
+    public void clickCheckBox(){
+        checkBox.click();
+    }
+
+    public boolean isButtonSignInActive(){
+        return buttonSignUp.isEnabled();
     }
 
     public boolean signUpWithMobileAs(){

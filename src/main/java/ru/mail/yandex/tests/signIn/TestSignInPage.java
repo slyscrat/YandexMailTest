@@ -75,8 +75,6 @@ public class TestSignInPage extends WebTest {
         try{
             signInPage.submitUsername(getUser().getUsername());
             signInPage.passwordRestore();
-            String title = getDriver().getTitle();
-            if(!title.equals("Восстановление доступа")) throw new Exception();
         }
         catch(Exception ex){
             failedPrint(this, "password restore redirection");

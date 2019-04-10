@@ -22,13 +22,13 @@ public class TestInvalidSignIn extends WebTest {
 
         for(ErrorData error: errorUsername){
             try {
-                signInPage.submitUsername(error.getDataError());
-                if (signInPage.isErrorNotShown(error.getTextError()))
-                    throw new Exception("username " + error.getTestError());
+                signInPage.submitUsername(error.getData());
+                if (signInPage.isErrorNotShown(error.getText()))
+                    throw new Exception();
             }
             catch(Exception ex){
                 status = false;
-                failedPrint(this, ex.getMessage());
+                failedPrint(this, error.getText());
             }
         }
 
@@ -36,13 +36,13 @@ public class TestInvalidSignIn extends WebTest {
 
         for(ErrorData error: errorPassword){
             try{
-                signInPage.submitPassword(error.getDataError());
-                if (signInPage.isErrorNotShown(error.getTextError()))
-                    throw new Exception("passsword " + error.getTestError());
+                signInPage.submitPassword(error.getData());
+                if (signInPage.isErrorNotShown(error.getText()))
+                    throw new Exception();
             }
             catch(Exception ex){
                 status = false;
-                failedPrint(this, ex.getMessage());
+                failedPrint(this, error.getTest());
             }
         }
         return status;
@@ -53,11 +53,11 @@ public class TestInvalidSignIn extends WebTest {
     }
 
     private void initErrors(){
-        errorUsername.add(new ErrorData("empty", "Логин не указан", " "));
-        errorUsername.add(new ErrorData("starting with num", "Такой логин не подойдет", "1slyscrat"));
-        errorUsername.add(new ErrorData("with rus letters", "Такой логин не подойдет", "Илья"));
-        errorUsername.add(new ErrorData("with special characters", "Такой логин не подойдет", "!№%"));
-        errorPassword.add(new ErrorData("empty", "Пароль не указан", " "));
-        errorPassword.add(new ErrorData("wrong", "Неверный пароль", "1qaz"));
+        errorUsername.add(new ErrorData("empty username", "Логин не указан", " "));
+        errorUsername.add(new ErrorData("username starting with num", "Такой логин не подойдет", "1slyscrat"));
+        errorUsername.add(new ErrorData("username with rus letters", "Такой логин не подойдет", "Илья"));
+        errorUsername.add(new ErrorData("username with special characters", "Такой логин не подойдет", "!№%"));
+        errorPassword.add(new ErrorData("empty password", "Пароль не указан", " "));
+        errorPassword.add(new ErrorData("wrong password", "Неверный пароль", "1qaz"));
     }
 }
